@@ -5,7 +5,6 @@
       <router-link to="/teams/create">Create Team</router-link> |
       <router-link to="/teams/show">Show Team</router-link>
     </div>
-  <router-view />
-
-  </div>  
+    <router-view />
+  </div>
 </template>

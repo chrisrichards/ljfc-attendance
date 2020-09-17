@@ -7,7 +7,7 @@ import CreateEvent from "../views/events/Create.vue";
 import ShowEvent from "../views/events/Show.vue";
 
 import Parents from "../views/parents/List.vue";
-import CreateParent from "../views/parents/Create.vue";
+import EditParent from "../views/parents/Edit.vue";
 import ShowParent from "../views/parents/Show.vue";
 
 import Teams from "../views/teams/List.vue";
@@ -48,12 +48,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/parents/create",
     name: "CreateParent",
-    component: CreateParent
+    component: EditParent
   },
   {
     path: "/parents/show",
     name: "ShowParent",
     component: ShowParent
+  },
+  {
+    path: "/parents/edit/:id",
+    name: "EditParent",
+    component: EditParent,
+    props: true
   },
   {
     path: "/teams",

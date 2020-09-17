@@ -1,30 +1,20 @@
 import { createStore } from "vuex";
-// import parents from "./modules/parents";
+import { Parent } from "@/models/Parent";
 
 export default createStore({
   state: {
-    parents: [
-      {
-        id: 1,
-        name: "Chris Richards",
-        phone: "07801 866878",
-        email: "chris@chrisrichards.co.uk"
-      },
-      {
-        id: 2,
-        name: "Mark Campbell",
-        phone: "01234 567890",
-        email: "mark@oneanvil.com"
-      }
-    ],
+    parents: Array<Parent>(),
     teams: [],
     events: []
   },
   mutations: {
-    addParent(state, payload) {
+    addParent(state, parent: Parent) {
       const id = state.parents.length + 1;
-      payload.id = id;
-      state.parents.push(payload);
+      parent.id = id;
+      state.parents.push(parent);
+    },
+    updateParent(state, parent: Parent) {
+      const index = state.parents.findIndex(d => d.id === parent.id);
     },
     removeParent(state, id) {
       const index = state.parents.findIndex(d => d.id === id);
@@ -32,8 +22,11 @@ export default createStore({
     }
   },
   actions: {
-    addParent({ commit }, payload) {
-      commit("addParent", payload);
+    addParent({ commit }, parent) {
+      commit("addParent", parent);
+    },
+    updateParent({ commit }, parent) {
+      commit("updateParent", parent);
     },
     removeParent({ commit }, id) {
       commit("removeParent", id);
