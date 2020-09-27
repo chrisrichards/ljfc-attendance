@@ -16,6 +16,3 @@ import Nav from "@/components/Nav.vue"; // @ is an alias to /src
 })
 export default class Home extends Vue {}
 </script>
-
-<style lang="scss">
-</style>

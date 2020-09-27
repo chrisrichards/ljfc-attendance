@@ -3,16 +3,13 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 
 import Events from "../views/events/List.vue";
-import CreateEvent from "../views/events/Create.vue";
-import ShowEvent from "../views/events/Show.vue";
-
-import Parents from "../views/parents/List.vue";
-import EditParent from "../views/parents/Edit.vue";
-import ShowParent from "../views/parents/Show.vue";
+import EditEvent from "../views/events/Edit.vue";
 
 import Teams from "../views/teams/List.vue";
-import CreateTeam from "../views/teams/Create.vue";
-import ShowTeam from "../views/teams/Show.vue";
+import EditTeam from "../views/teams/Edit.vue";
+
+import Players from "../views/players/List.vue";
+import EditPlayer from "../views/players/Edit.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,32 +30,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/events/create",
     name: "CreateEvent",
-    component: CreateEvent
+    component: EditEvent
   },
   {
-    path: "/events/show",
-    name: "ShowEvent",
-    component: ShowEvent
-  },
-  {
-    path: "/parents",
-    name: "Parents",
-    component: Parents
-  },
-  {
-    path: "/parents/create",
-    name: "CreateParent",
-    component: EditParent
-  },
-  {
-    path: "/parents/show",
-    name: "ShowParent",
-    component: ShowParent
-  },
-  {
-    path: "/parents/edit/:id",
-    name: "EditParent",
-    component: EditParent,
+    path: "/events/edit/:id",
+    name: "EditEvent",
+    component: EditEvent,
     props: true
   },
   {
@@ -69,12 +46,31 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/teams/create",
     name: "CreateTeam",
-    component: CreateTeam
+    component: EditTeam
   },
   {
-    path: "/teams/show",
-    name: "ShowTeam",
-    component: ShowTeam
+    path: "/teams/edit/:id",
+    name: "EditTeam",
+    component: EditTeam,
+    props: true
+  },
+  {
+    path: "/teams/:teamId/players",
+    name: "Players",
+    component: Players,
+    props: true
+  },
+  {
+    path: "/teams/:teamId/players/create",
+    name: "CreatePlayer",
+    component: EditPlayer,
+    props: true
+  },
+  {
+    path: "/teams/:teamId/players/edit/:id",
+    name: "EditPlayer",
+    component: EditPlayer,
+    props: true
   }
 ];
 

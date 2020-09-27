@@ -7,7 +7,7 @@
             <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
               <div class="ml-4 mt-2">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  Add parent
+                  Add team
                 </h3>
               </div>
             </div>
@@ -23,23 +23,7 @@
                             Name
                           </label>
                           <div class="mt-1 rounded-md shadow-sm">
-                            <input id="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="parent.name">
-                          </div>
-                        </div>
-                        <div class="sm:col-span-4">
-                          <label for="phone" class="block text-sm font-medium leading-5 text-gray-700">
-                            Phone
-                          </label>
-                          <div class="mt-1 rounded-md shadow-sm">
-                            <input id="phone" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="parent.phone">
-                          </div>
-                        </div>
-                        <div class="sm:col-span-4">
-                          <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
-                            Email address
-                          </label>
-                          <div class="mt-1 rounded-md shadow-sm">
-                            <input id="email" type="email" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="parent.email">
+                            <input id="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" v-model="team.name">
                           </div>
                         </div>
                     </div>
@@ -69,9 +53,10 @@
 </template>
 
 <script lang="ts">
-import { Parent } from "@/models/Parent";
+import { Team } from "@/models/Team";
 import router from "@/router/index";
-import store from "../../store/index";
+import store from "@/store/index";
+import { state } from "@/store/State";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
@@ -79,33 +64,31 @@ export default defineComponent({
     id: String
   },
   setup(props) {
-    let p = new Parent();
+    let t = new Team();
 
-    console.log("edit parent: id=" + props.id);
-    
     if (props.id) {
-      const index = store.state.parents.findIndex(p => p.id === Number(props.id));
-      p = store.state.parents[index];
+      const orig = store.getters.getTeamById(Number(props.id));
+      if (orig) t = Team.clone(orig);
     }
 
-    const parent = ref(p);
+    const team = ref(t);
 
     const submit = (): void => {
       if (props.id) {
-        store.dispatch("updateParent", parent.value);
+        store.dispatch("updateTeam", team.value);
       }
       else {
-        store.dispatch("addParent", parent.value);
+        store.dispatch("addTeam", team.value);
       }
-      router.push({ path: '/parents' });
+      router.push({ path: '/teams' });
     };
 
     const cancel = (): void => {
-      router.push({ path: '/parents' });
+      router.push({ path: '/teams' });
     };
 
     return {
-      parent,
+      team,
       submit,
       cancel
     };
