@@ -82,6 +82,7 @@
 
 <script lang="ts">
 import { Event } from "@/models/Event";
+import { Parent } from "@/models/Parent";
 import { Row } from "@/models/Row";
 import { Table } from "@/models/Table";
 import router from "@/router/index";
@@ -112,11 +113,21 @@ export default defineComponent({
       return value + newLine;
     }
 
+    const writeParent = (parent: Parent): string => {
+      let value = " - " + parent.name;
+      if (parent.phone)
+        value += " - " + parent.phone;
+
+      if (parent.email)
+        value += " - " + parent.email;
+
+      value += newLine;
+      return value;
+    }
+
     const buildBody = (event: Event): string => {
       let body = `LJFC ${event.date} - ${event.team.name} attendance`;
       body += newLine;
-      body += newLine;
-      body += "----------" + newLine;
       body += newLine;
 
       const players = event.team.players.filter(p => p.selected === true);
@@ -124,21 +135,13 @@ export default defineComponent({
         body += writeLine(p.name);
         body += newLine;
         if (p.parent1.selected === true) {
-          body += writeLine(p.parent1.name);
-          body += writeLine(p.parent1.phone);
-          body += writeLine(p.parent1.email);
-          body += newLine;
-
+          body += writeParent(p.parent1);
         }
         if (p.parent2.selected === true) {
-          body += writeLine(p.parent2.name);
-          body += writeLine(p.parent2.phone);
-          body += writeLine(p.parent2.email);
-          body += newLine;
+          body += writeParent(p.parent2);
         }
-        body += writeLine(`Self Assessed: ${p.selfAssessment ? 'Yes' : 'No'}`);
+        body += writeLine(` - Self Assessed: ${p.selfAssessment ? 'Yes' : 'No'}`);
         body += newLine;
-        body += "----------" + newLine;
         body += newLine;
       });
 
