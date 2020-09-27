@@ -7,7 +7,8 @@
             <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
               <div class="ml-4 mt-2">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  Add event
+                  <span v-if="event.id !== undefined">Edit event</span>
+                  <span v-else>Add event</span>
                 </h3>
               </div>
             </div>
