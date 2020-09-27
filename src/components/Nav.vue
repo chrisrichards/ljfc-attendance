@@ -1,61 +1,80 @@
 <template>
-    <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-16">
-                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                    <!-- Mobile menu button-->
-                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out" aria-label="Main menu" aria-expanded="false">
-                    <!-- Icon when menu is closed. -->
-                    <!--
-                        Heroicon name: menu
+  <div class="relative pt-6 pb-2 sm:pb-6 bg-gray-800">
+    <nav class="relative max-w-screen-xl mx-auto flex items-center justify-between px-4 sm:px-6">
+      <div class="flex items-center flex-1">
+        <div class="flex items-center justify-between w-full md:w-auto">
+          <router-link to="/" aria-label="Home">
+            <img class="h-8 w-auto sm:h-10" src="../assets/logo.png" alt="Littleton Junior Football Club logo">
+          </router-link>
+          <div class="-mr-2 flex items-center md:hidden">
+            <button @click="toggleIsMenuOpen()" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition duration-150 ease-in-out" id="main-menu" aria-label="Main menu" aria-haspopup="true">
+              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="hidden space-x-10 md:flex md:ml-10">
+          <router-link to="/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</router-link>
+          <router-link to="/events" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Events</router-link>
+          <router-link to="/teams"  class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Teams</router-link>
+          <router-link to="/about"  class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</router-link>
+        </div>
+      </div>
+    </nav>
 
-                        Menu open: "hidden", Menu closed: "block"
-                    -->
-                    <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <!-- Icon when menu is open. -->
-                    <!--
-                        Heroicon name: x
-
-                        Menu open: "block", Menu closed: "hidden"
-                    -->
-                    <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    </button>
-                </div>
-                <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                    <div class="flex-shrink-0">
-                    <img class="block lg:hidden h-8 w-auto" src="../assets/logo.png" alt="Littleton Junior Football Club logo" />
-                    <img class="hidden lg:block h-8 w-auto" src="../assets/logo.png" alt="Littleton Junior Football Club logo" />
-                    <!-- <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-dark.svg" alt="Workflow logo">
-                    <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-on-dark.svg" alt="Workflow logo"> -->
+    <transition
+      enter-active-class="transition ease-out duration-150 transform"
+      enter-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-100 transform"
+      leave-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+     >
+        <div v-if="isMenuOpen" class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-10">
+            <div class="rounded-lg shadow-md">
+                <div class="rounded-lg bg-gray-800 shadow-xs overflow-hidden" role="menu" aria-orientation="vertical" aria-labelledby="main-menu">
+                    <div class="px-5 pt-4 flex items-center justify-between">
+                        <div>
+                            <img class="h-8 w-auto" src="../assets/logo.png" alt="Littleton Junior Football Club logo">
+                        </div>
+                        <div class="-mr-2">
+                        <button @click="toggleIsMenuOpen()" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out" aria-label="Close menu">
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                        </div>
                     </div>
-                    <div class="hidden sm:block sm:ml-6">
-                    <div class="flex">
-                        <router-link to="/" class="px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</router-link> |
-                        <router-link to="/events" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Events</router-link> |
-                        <router-link to="/teams" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Teams</router-link> |
-                        <router-link to="/about" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">About</router-link>
-                    </div>
+                    <div class="space-y-1 px-2 pt-2 pb-3">
+                        <router-link to="/" @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</router-link>
+                        <router-link to="/events" @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Events</router-link>
+                        <router-link to="/teams"  @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Teams</router-link>
+                        <router-link to="/about"  @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</router-link>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--
-            Mobile menu, toggle classes based on menu state.
-
-            Menu open: "block", Menu closed: "hidden"
-        -->
-        <div class="hidden sm:hidden">
-            <div class="px-2 pt-2 pb-3">
-                <router-link to="/" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Home</router-link> |
-                <router-link to="/events" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Events</router-link> |
-                <router-link to="/teams" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Teams</router-link> |
-                <router-link to="/about" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">About</router-link>
-            </div>
-        </div>
-    </nav>    
+    </transition>
+  </div>
 </template>
+
+<script lang="ts">
+import { Options, Vue } from "vue-class-component";
+import { defineComponent, ref, watch } from "vue";
+
+export default defineComponent({
+      setup() {
+        const isMenuOpen = ref(false);
+
+        const toggleIsMenuOpen = () => {
+            isMenuOpen.value = !isMenuOpen.value;
+        };
+
+        return {
+            isMenuOpen,
+            toggleIsMenuOpen
+        };
+    }
+});
+</script>

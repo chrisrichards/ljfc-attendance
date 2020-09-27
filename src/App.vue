@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-gray-200">
+  <div class="relative bg-gray-200 overflow-hidden">
     <Nav></Nav>
-    <router-view />
+    <main class="mx-auto max-w-screen-xl px-4 pb-6">
+      <router-view />
+    </main>
   </div>
 </template>
 
