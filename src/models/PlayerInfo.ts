@@ -9,7 +9,9 @@ export default class PlayerInfo {
     parent2Email = "";
     parent2Phone = "";
 
-    constructor(player: Player) {
+    constructor(player: Player | undefined = undefined) {
+        if (player === undefined) return;
+
         this.name = player.name;
         this.parent1Name = player.parent1.name;
         this.parent1Phone = player.parent1.phone;

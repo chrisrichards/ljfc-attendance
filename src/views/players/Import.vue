@@ -15,14 +15,14 @@
             <form>
               <div>
                 <div>
-                  <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                  <div class="mt-6">
                     <div class="sm:col-span-3">
                       <label for="csv" class="block text-sm font-medium leading-5 text-gray-700">
                         CSV
                       </label>
                       <div class="mt-1 rounded-md shadow-sm">
-                        <div class="max-w-lg flex rounded-md shadow-sm">
-                            <textarea id="csv" v-model="csv" rows="10" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
+                        <div class="rounded-md shadow-sm">
+                            <textarea id="csv" v-model="csv" rows="20" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
                         </div>
                         <p class="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
                       </div>
@@ -56,7 +56,7 @@ import { Options, Vue } from "vue-class-component";
 import router from "@/router/index";
 import store from "@/store/index";
 import { defineComponent, ref } from "vue";
-import { TeamPlayer } from '@/models/TeamPlayer';
+import PlayersImporter from "@/services/PlayersImporter";
 
 export default defineComponent({
   props: {
@@ -72,7 +72,9 @@ export default defineComponent({
     const csv = ref("");
 
     const submit = (): void => {
-      console.log("submit");
+      const importer = new PlayersImporter();
+      importer.import(team, csv.value);
+
       router.push({ path: `/teams/${team.id}/players` });
     };
 

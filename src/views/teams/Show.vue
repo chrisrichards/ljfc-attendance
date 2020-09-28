@@ -80,7 +80,7 @@ export default defineComponent({
     };
 
     const showEditPlayer = (id: number): void => {
-      router.push({ path: `/teams/${team.value.id}/players/edit/${id}` });
+      router.push({ path: `/teams/${team.value.id}/players/${id}/edit` });
     };
 
     const removePlayer = (id: number): void => {

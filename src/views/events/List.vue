@@ -95,7 +95,7 @@ export default defineComponent({
     };
 
     const showEditEvent = (id: number): void => {
-      router.push({ path: `/events/edit/${id}` });
+      router.push({ path: `/events/${id}/edit` });
     };
 
     const removeEvent = (id: number): void => {
