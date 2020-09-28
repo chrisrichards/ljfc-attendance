@@ -80,13 +80,10 @@
 <script lang="ts">
 import { Event } from "@/models/Event";
 import { Parent } from "@/models/Parent";
-import { Row } from "@/models/Row";
-import { Table } from "@/models/Table";
+import EmailGenerator from "@/services/EmailGenerator";
 import router from "@/router/index";
 import store from "../../store/index";
 import { defineComponent, ref } from "vue";
-
-const newLine = "%0d%0a";
 
 export default defineComponent({
   
@@ -105,56 +102,10 @@ export default defineComponent({
       store.dispatch("removeEvent", id);
     };
 
-    const writeLine = (value: string): string => {
-      if (value === undefined || value === "") return "";
-      return value + newLine;
-    }
-
-    const writeParent = (parent: Parent): string => {
-      let value = " - " + parent.name;
-      if (parent.phone)
-        value += " - " + parent.phone;
-
-      if (parent.email)
-        value += " - " + parent.email;
-
-      value += newLine;
-      return value;
-    }
-
-    const buildBody = (event: Event): string => {
-      let body = `LJFC ${event.date} - ${event.team.name} attendance`;
-      body += newLine;
-      body += newLine;
-
-      const players = event.team.players.filter(p => p.selected === true);
-      players.forEach(p => {
-        body += writeLine(p.name);
-        body += newLine;
-        if (p.parent1.selected === true) {
-          body += writeParent(p.parent1);
-        }
-        if (p.parent2.selected === true) {
-          body += writeParent(p.parent2);
-        }
-        body += writeLine(` - Self Assessed: ${p.selfAssessment ? 'Yes' : 'No'}`);
-        body += newLine;
-        body += newLine;
-      });
-
-      return body;
-    }
-
     const emailEvent = (id: number): void => {
       const event = store.getters.getEventById(id);
-
-      const to = "cwo@littletonjuniorfc.com, fletchdownunder@gmail.com";
-      const subject = `LJFC ${event.date} - ${event.team.name} attendance`;
-      const body = buildBody(event);
-      const mail = `mailto:${to}?subject=${subject}&body=${body}`;
-      const link = document.createElement('a');
-      link.setAttribute('href', mail);
-      link.click();        
+      const emailGenerator = new EmailGenerator();
+      emailGenerator.generateEmail(event);
     };
 
     return {
