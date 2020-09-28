@@ -26,10 +26,13 @@ export default createStore({
     }
   },
   mutations: {
+    init(state) {
+      if (state.nextId === 0)
+        state.nextId = 1;
+    },
     // events
     addEvent(state, event: Event) {
-      const id = state.events.length + 1;
-      event.id = id;
+      event.id = state.nextId++;
       state.events.push(event);
     },
     updateEvent(state, event: Event) {
@@ -48,8 +51,7 @@ export default createStore({
       const team = state.teams.find(t => t.id === teamPlayer.team.id);
       if (!team) return;
 
-      const id = team.players.length + 1;
-      teamPlayer.player.id = id;
+      teamPlayer.player.id = state.nextId++;
       team?.players.push(teamPlayer.player);
     },
     updatePlayer(state, teamPlayer: TeamPlayer) {
@@ -67,8 +69,7 @@ export default createStore({
     
     // teams
     addTeam(state, team: Team) {
-      const id = state.teams.length + 1;
-      team.id = id;
+      team.id = state.nextId++;
       state.teams.push(team);
     },
     updateTeam(state, team: Team) {
@@ -82,6 +83,9 @@ export default createStore({
     }
   },
   actions: {
+    init({ commit }) {
+      commit("init", event);
+    },
     // events
     addEvent({ commit }, event: Event) {
       commit("addEvent", event);

@@ -6,6 +6,8 @@ import store from "./store";
 
 import "@/assets/tailwind.css";
 
+store.dispatch("init");
+
 createApp(App)
   .use(store)
   .use(router)
