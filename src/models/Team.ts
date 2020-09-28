@@ -1,4 +1,4 @@
-import { Player } from './Player';
+import { Player } from '@/models//Player';
 
 export class Team {
     id: number | undefined = undefined;

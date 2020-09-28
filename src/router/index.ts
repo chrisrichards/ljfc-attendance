@@ -10,6 +10,8 @@ import EditTeam from "../views/teams/Edit.vue";
 
 import Players from "../views/players/List.vue";
 import EditPlayer from "../views/players/Edit.vue";
+import ExportPlayers from "../views/players/Export.vue";
+import ImportPlayers from "../views/players/Import.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     component: EditEvent
   },
   {
-    path: "/events/edit/:id",
+    path: "/events/:id/edit",
     name: "EditEvent",
     component: EditEvent,
     props: true
@@ -49,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
     component: EditTeam
   },
   {
-    path: "/teams/edit/:id",
+    path: "/teams/:id/edit",
     name: "EditTeam",
     component: EditTeam,
     props: true
@@ -67,9 +69,21 @@ const routes: Array<RouteRecordRaw> = [
     props: true
   },
   {
-    path: "/teams/:teamId/players/edit/:id",
+    path: "/teams/:teamId/players/:id/edit",
     name: "EditPlayer",
     component: EditPlayer,
+    props: true
+  },
+  {
+    path: "/teams/:teamId/players/export",
+    name: "ExportPlayers",
+    component: ExportPlayers,
+    props: true
+  },
+  {
+    path: "/teams/:teamId/players/import",
+    name: "ImportPlayers",
+    component: ImportPlayers,
     props: true
   }
 ];
