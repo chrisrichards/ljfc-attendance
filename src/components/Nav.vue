@@ -18,7 +18,7 @@
           <router-link to="/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</router-link>
           <router-link to="/events" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Events</router-link>
           <router-link to="/teams"  class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Teams</router-link>
-          <router-link to="/about"  class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</router-link>
+          <!-- <router-link to="/about"  class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</router-link> -->
         </div>
       </div>
     </nav>
@@ -50,7 +50,7 @@
                         <router-link to="/" @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</router-link>
                         <router-link to="/events" @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Events</router-link>
                         <router-link to="/teams"  @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Teams</router-link>
-                        <router-link to="/about"  @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</router-link>
+                        <!-- <router-link to="/about"  @click="isMenuOpen = false" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</router-link> -->
                     </div>
                 </div>
             </div>
