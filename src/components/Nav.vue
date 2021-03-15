@@ -60,8 +60,7 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
       setup() {
