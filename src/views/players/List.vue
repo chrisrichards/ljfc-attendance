@@ -79,11 +79,11 @@
 </template>
 
 <script lang="ts">
-import router from "@/router/index";
+import router from "../..//router/index";
 import store from "../../store/index";
 import { defineComponent, ref } from "vue";
-import { Player } from '@/models/Player';
-import { TeamPlayer } from '@/models/TeamPlayer';
+import { Player } from '../../models/Player';
+import { TeamPlayer } from '../../models/TeamPlayer';
 
 export default defineComponent({
   props: {

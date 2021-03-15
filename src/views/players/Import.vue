@@ -61,11 +61,10 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import router from "@/router/index";
-import store from "@/store/index";
+import router from "../..//router/index";
+import store from "../..//store/index";
 import { defineComponent, ref } from "vue";
-import PlayersImporter from "@/services/PlayersImporter";
+import PlayersImporter from "../..//services/PlayersImporter";
 
 export default defineComponent({
   props: {

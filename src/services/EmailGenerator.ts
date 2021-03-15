@@ -1,5 +1,5 @@
-import { Event } from "@/models/Event";
-import { Parent } from "@/models/Parent";
+import { Event } from "../models/Event";
+import { Parent } from "../models/Parent";
 
 const newLine = "%0d%0a";
 

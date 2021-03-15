@@ -78,10 +78,8 @@
 </template>
 
 <script lang="ts">
-import { Event } from "@/models/Event";
-import { Parent } from "@/models/Parent";
-import EmailGenerator from "@/services/EmailGenerator";
-import router from "@/router/index";
+import EmailGenerator from "../..//services/EmailGenerator";
+import router from "../..//router/index";
 import store from "../../store/index";
 import { defineComponent, ref } from "vue";
 

@@ -1,6 +1,5 @@
 import { Player } from './Player';
-
-import { Team } from "@/models/Team";
+import { Team } from "./Team";
 
 export class TeamPlayer {
     team = new Team();

@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Nav from "@/components/Nav.vue"; // @ is an alias to /src
+import Nav from "@components/Nav.vue"; // @ is an alias to /src
 
 @Options({
   components: {

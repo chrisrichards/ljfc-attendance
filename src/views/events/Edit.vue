@@ -111,12 +111,11 @@
 </template>
 
 <script lang="ts">
-import { Event } from "@/models/Event";
-import { Parent } from "@/models/Parent";
-import { Team } from "@/models/Team";
-import router from "@/router/index";
-import store from "@/store/index";
-import { state } from "@/store/State";
+import { Event } from "../../models/Event";
+import { Parent } from "../..//models/Parent";
+import { Team } from "../..//models/Team";
+import router from "../..//router/index";
+import store from "../..//store/index";
 import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({

@@ -1,4 +1,4 @@
-import { Parent } from '@/models/Parent';
+import { Parent } from './Parent';
 
 export class Player {
     id: number | undefined = undefined;

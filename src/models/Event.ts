@@ -1,4 +1,4 @@
-import { Team } from "@/models/Team";
+import { Team } from "./Team";
 
 export class Event {
     id: number | undefined;

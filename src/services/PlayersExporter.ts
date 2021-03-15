@@ -1,6 +1,6 @@
 import { unparse } from "papaparse";
-import PlayerInfo from "@/models/PlayerInfo";
-import { Team } from "@/models/Team";
+import PlayerInfo from "../models/PlayerInfo";
+import { Team } from "../models/Team";
 
 
 export default class PlayersExporter {

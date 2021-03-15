@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import router from "@/router/index";
+import router from "../../router/index";
 import store from "../../store/index";
 import { defineComponent, ref } from "vue";
 

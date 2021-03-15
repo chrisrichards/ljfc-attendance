@@ -1,8 +1,8 @@
 import { parse } from "papaparse";
-import store from "@/store/index";
-import { Player } from "@/models/Player";
-import { Team } from "@/models/Team";
-import { TeamPlayer } from '@/models/TeamPlayer';
+import store from "../store/index";
+import { Player } from "../models/Player";
+import { Team } from "../models/Team";
+import { TeamPlayer } from '../models/TeamPlayer';
 
 export default class PlayersImporter {
     public import(team: Team, csv: string): void {

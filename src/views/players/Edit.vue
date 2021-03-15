@@ -128,13 +128,11 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { Player } from "@/models/Player";
-import { Team } from "@/models/Team";
-import router from "@/router/index";
-import store from "@/store/index";
+import { Player } from "../../models/Player";
+import router from "../..//router/index";
+import store from "../..//store/index";
 import { defineComponent, ref } from "vue";
-import { TeamPlayer } from '@/models/TeamPlayer';
+import { TeamPlayer } from '../..//models/TeamPlayer';
 
 export default defineComponent({
   props: {

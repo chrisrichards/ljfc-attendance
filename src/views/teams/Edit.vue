@@ -37,9 +37,9 @@
 </template>
 
 <script lang="ts">
-import { Team } from "@/models/Team";
-import router from "@/router/index";
-import store from "@/store/index";
+import { Team } from "../..//models/Team";
+import router from "../..//router/index";
+import store from "../../store/index";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({

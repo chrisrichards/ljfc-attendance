@@ -46,12 +46,10 @@
 </template>
 
 <script lang="ts">
-import PlayersExporter from "@/services/PlayersExporter";
-import { Options, Vue } from "vue-class-component";
-import router from "@/router/index";
-import store from "@/store/index";
+import PlayersExporter from "../..//services/PlayersExporter";
+import router from "../..//router/index";
+import store from "../..//store/index";
 import { defineComponent, ref } from "vue";
-import { TeamPlayer } from '@/models/TeamPlayer';
 
 export default defineComponent({
   props: {

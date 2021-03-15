@@ -1,10 +1,10 @@
 import { createStore } from "vuex";
 import VuexPersistence from 'vuex-persist'
 
-import { Event } from "@/models/Event";
-import { Player } from "@/models/Player";
-import { Team } from "@/models/Team";
-import { TeamPlayer } from "@/models/TeamPlayer";
+import { Event } from "../models/Event";
+import { Player } from "../models/Player";
+import { Team } from "../models/Team";
+import { TeamPlayer } from "../models/TeamPlayer";
 import { State, state } from './State';
 
 const vuexLocal = new VuexPersistence<State>({
