@@ -3,24 +3,13 @@
     <div class="max-w-none mx-auto">
       <div class="bg-white overflow-hidden sm:rounded-lg sm:shadow">
         <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
-            <span v-if="team.id">Edit team</span>
-            <span v-else>Add team</span>
-          </h3>
+          <h3 class="text-lg leading-6 font-medium text-gray-900">Delete team</h3>
         </div>
         <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
           <form class="space-y-8 divide-y divide-gray-200">
-            <div class="sm:col-span-4">
-              <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
-              <div class="mt-1">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  autocomplete="team-name"
-                  v-model="team.name"
-                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                />
+            <div class="space-y-8 divide-y divide-gray-200">
+              <div class="sm:col-span-12">
+                <p>Are you sure you want to delete the {{ team.name }} team?</p>
               </div>
             </div>
             <div class="pt-5">
@@ -36,7 +25,7 @@
                   @click="submit"
                   class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Save
+                  Delete
                 </button>
               </div>
             </div>
@@ -48,8 +37,8 @@
 </template>
 
 <script lang="ts">
-import { Team } from '../..//models/Team'
-import router from '../..//router/index'
+import { Team } from '../../models/Team'
+import router from '../../router/index'
 import store from '../../store/index'
 import { defineComponent, ref } from 'vue'
 
@@ -58,23 +47,13 @@ export default defineComponent({
     id: String,
   },
   setup(props) {
-    let t = new Team()
-
-    if (props.id) {
-      const orig = store.getters.getTeamById(Number(props.id))
-      if (orig) t = Team.clone(orig)
-    }
-
-    const team = ref(t)
+    const team = ref(store.getters.getTeamById(Number(props.id)))
 
     const submit = (): void => {
       if (props.id) {
-        store.dispatch('updateTeam', team.value)
-        router.push({ name: 'Players', params: { teamId: team.value.id } })
-      } else {
-        store.dispatch('addTeam', team.value)
-        router.push({ path: '/teams' })
+        store.dispatch('removeTeam', team.value)
       }
+      router.push({ path: '/teams' })
     }
 
     return {

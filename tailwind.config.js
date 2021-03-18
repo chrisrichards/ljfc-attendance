@@ -12,6 +12,8 @@ module.exports = {
       colors: {
         teal: colors.teal,
         cyan: colors.cyan,
+        'ljfc-blue': '#5da9dd',
+        'ljfc-black': '#343434'
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
