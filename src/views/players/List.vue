@@ -11,19 +11,19 @@
               </div>
               <div class="ml-4 mt-2 flex-shrink-0">
                 <span class="inline-flex rounded-md">
-                  <router-link :to="{ name: 'EditTeam', params: { id: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2">Rename</router-link>
+                  <router-link :to="{ name: 'EditTeam', params: { id: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-xs md:text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2">Rename</router-link>
                 </span>
                 <span class="inline-flex rounded-md">
-                  <router-link :to="{ name: 'DeleteTeam', params: { id: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2">Delete</router-link>
+                  <router-link :to="{ name: 'DeleteTeam', params: { id: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-xs md:text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2">Delete</router-link>
                 </span>
                 <span class="inline-flex rounded-md">
-                  <router-link :to="{ name: 'ImportPlayers', params: { teamId: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200 transition ease-in-out duration-150 ml-2">Import</router-link>
+                  <router-link :to="{ name: 'ImportPlayers', params: { teamId: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-xs md:text-sm leading-5 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200 transition ease-in-out duration-150 ml-2">Import</router-link>
                 </span>
                 <span class="inline-flex rounded-md">
-                  <router-link :to="{ name: 'ExportPlayers', params: { teamId: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200 transition ease-in-out duration-150 ml-2">Export</router-link>
+                  <router-link :to="{ name: 'ExportPlayers', params: { teamId: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-xs md:text-sm leading-5 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200 transition ease-in-out duration-150 ml-2">Export</router-link>
                 </span>
                 <span class="inline-flex rounded-md">
-                  <router-link :to="{ name: 'CreatePlayer', params: { teamId: team.id }}" class="relative inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700 active:bg-indigo-700 ml-2">
+                  <router-link :to="{ name: 'CreatePlayer', params: { teamId: team.id }}" class="relative inline-flex items-center px-4 py-2 border border-transparent md:text-sm text-xs leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700 active:bg-indigo-700 ml-2">
                     Add player
                   </router-link>
                 </span>
