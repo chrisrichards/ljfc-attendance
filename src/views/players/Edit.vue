@@ -10,6 +10,16 @@
                 <span v-else>Add player</span>
               </h3>
             </div>
+            <div v-if="player.id !== undefined" class="ml-4 mt-2 flex-shrink-0">
+              <span class="inline-flex rounded-md">
+                <router-link
+                  :to="{ name: 'DeletePlayer', params: { teamId: team.id, id: player.id } }"
+                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2"
+                >
+                  Remove
+                </router-link>
+              </span>
+            </div>
           </div>
         </div>
         <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
@@ -154,10 +164,10 @@
 
 <script lang="ts">
 import { Player } from '../../models/Player'
+import { TeamPlayer } from '../..//models/TeamPlayer'
 import router from '../..//router/index'
 import store from '../..//store/index'
 import { defineComponent, ref } from 'vue'
-import { TeamPlayer } from '../..//models/TeamPlayer'
 
 export default defineComponent({
   props: {
@@ -183,19 +193,13 @@ export default defineComponent({
     const player = ref(p)
 
     const submit = (): void => {
-      console.log('submit')
       if (props.id) {
         const teamPlayer = new TeamPlayer(team, player.value)
         store.dispatch('updatePlayer', teamPlayer)
       } else {
-        console.log('submit: addPlayer')
         const teamPlayer = new TeamPlayer(team, player.value)
         store.dispatch('addPlayer', teamPlayer)
       }
-      router.push({ path: `/teams/${team.id}/players` })
-    }
-
-    const cancel = (): void => {
       router.push({ path: `/teams/${team.id}/players` })
     }
 
@@ -203,7 +207,6 @@ export default defineComponent({
       team,
       player,
       submit,
-      cancel,
     }
   },
 })

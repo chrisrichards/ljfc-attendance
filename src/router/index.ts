@@ -11,6 +11,7 @@ import DeleteTeam from '../views/teams/Delete.vue'
 
 import Players from '../views/players/List.vue'
 import EditPlayer from '../views/players/Edit.vue'
+import DeletePlayer from '../views/players/Delete.vue'
 import ExportPlayers from '../views/players/Export.vue'
 import ImportPlayers from '../views/players/Import.vue'
 
@@ -79,6 +80,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/teams/:teamId/players/:id/edit',
     name: 'EditPlayer',
     component: EditPlayer,
+    props: true,
+  },
+  {
+    path: '/teams/:teamId/players/:id/delete',
+    name: 'DeletePlayer',
+    component: DeletePlayer,
     props: true,
   },
   {
