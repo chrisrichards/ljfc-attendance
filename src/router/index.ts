@@ -4,6 +4,7 @@ import About from '../views/About.vue'
 
 import Events from '../views/events/List.vue'
 import EditEvent from '../views/events/Edit.vue'
+import DeleteEvent from '../views/events/Delete.vue'
 
 import Teams from '../views/teams/List.vue'
 import EditTeam from '../views/teams/Edit.vue'
@@ -40,6 +41,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/events/:id/edit',
     name: 'EditEvent',
     component: EditEvent,
+    props: true,
+  },
+  {
+    path: '/events/:id/delete',
+    name: 'DeleteEvent',
+    component: DeleteEvent,
     props: true,
   },
   {

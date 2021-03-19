@@ -15,19 +15,91 @@
     >
       To get started follow the steps below:
     </p>
-    <div
-      class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-xl"
-    >
-      <ul class="list-decimal text-left">
-        <li>Add a team</li>
-        <li>Add players and parent contact details to the team</li>
-        <li>
-          Add an event, select the players and parents in attendance and whether they have self
-          assessed
-        </li>
-        <li>Email the event to LJFC</li>
-      </ul>
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="py-12 px-4 sm:px-6 lg:px-8">
+      <nav class="flex justify-center" aria-label="Progress">
+        <ol class="space-y-6">
+          <li>
+            <!-- Complete Step -->
+            <a href="#" class="group">
+              <span class="flex items-start">
+                <span class="flex-shrink-0 relative h-5 w-5 flex items-center justify-center">
+                  <!-- Heroicon name: solid/check-circle -->
+                  <svg
+                    class="h-full w-full text-indigo-600 group-hover:text-indigo-800"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900"
+                  >Add a team</span
+                >
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <!-- Current Step -->
+            <a href="#" class="flex items-start" aria-current="step">
+              <span
+                class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
+                aria-hidden="true"
+              >
+                <span class="absolute h-4 w-4 rounded-full bg-indigo-200"></span>
+                <span class="relative block w-2 h-2 bg-indigo-600 rounded-full"></span>
+              </span>
+              <span class="ml-3 text-base font-medium text-indigo-600"
+                >Add players and parent contact details to the team</span
+              >
+            </a>
+          </li>
+
+          <li>
+            <!-- Upcoming Step -->
+            <a href="#" class="group">
+              <div class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
+                </div>
+                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
+                  Add an event, select the players and parents in attendance and whether they have
+                  self assessed
+                </p>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <!-- Upcoming Step -->
+            <a href="#" class="group">
+              <div class="flex items-start">
+                <div
+                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
+                </div>
+                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
+                  Email the event to LJFC
+                </p>
+              </div>
+            </a>
+          </li>
+        </ol>
+      </nav>
     </div>
+
     <p
       class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl"
     >
