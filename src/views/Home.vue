@@ -23,7 +23,9 @@
             <router-link :to="{ name: 'CreateTeam' }" class="group">
               <div class="flex items-start">
                 <step-item :state="stepItemStates[0]" />
-                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
+                <p
+                  class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900 text-left"
+                >
                   Add a team
                 </p>
               </div>
@@ -34,7 +36,9 @@
             <router-link :to="{ name: 'Players', params: { teamId: team.id } }" class="group">
               <div class="flex items-start">
                 <step-item :state="stepItemStates[1]" />
-                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
+                <p
+                  class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900 text-left"
+                >
                   Add players and parent contact details to the team
                 </p>
               </div>
@@ -48,8 +52,8 @@
                 <p
                   class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900 text-left"
                 >
-                  Add an event, select the players and parents in <br />
-                  attendance and whether they have self assessed
+                  Add an event, select the players and parents in attendance and whether they have
+                  self assessed
                 </p>
               </div>
             </router-link>
@@ -59,7 +63,9 @@
             <router-link :to="{ name: 'EditEvent', params: { id: event.id } }" class="group">
               <div class="flex items-start">
                 <step-item :state="stepItemStates[3]" />
-                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
+                <p
+                  class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900 text-left"
+                >
                   Email the event to LJFC
                 </p>
               </div>
