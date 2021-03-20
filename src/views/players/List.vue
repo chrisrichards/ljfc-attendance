@@ -9,7 +9,43 @@
                   {{ team.name }}
                 </h3>
               </div>
-              <div class="ml-4 mt-2 flex-shrink-0">
+              <div class="ml-4 mt-2 flex-shrink-0 md:hidden">
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <div class="relative inline-block text-left">
+                  <div>
+                    <button type="button" @click="toggleIsMenuOpen()" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-expanded="true" aria-haspopup="true">
+                      Actions
+                      <!-- Heroicon name: solid/chevron-down -->
+                      <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>                
+                  <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                  >
+                    <div v-if="isMenuOpen" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none md:hidden" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                      <div class="py-1" role="none">
+                        <router-link :to="{ name: 'EditTeam', params: { id: team.id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Rename</router-link>
+                        <router-link :to="{ name: 'DeleteTeam', params: { id: team.id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Delete</router-link>
+                      </div>
+                      <div class="py-1" role="none">
+                        <router-link :to="{ name: 'ImportPlayers', params: { teamId: team.id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Import</router-link>
+                        <router-link :to="{ name: 'ExportPlayers', params: { teamId: team.id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Export</router-link>
+                      </div>
+                      <div class="py-1" role="none">
+                        <router-link :to="{ name: 'CreatePlayer', params: { teamId: team.id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Add player</router-link>
+                      </div>
+                    </div>
+                  </transition>
+                </div>
+              </div>
+              <div class="ml-4 mt-2 flex-shrink-0 hidden md:flex">
                 <span class="inline-flex rounded-md">
                   <router-link :to="{ name: 'EditTeam', params: { id: team.id }}" class="inline-flex items-center px-4 py-2 border border-transparent text-xs md:text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2">Rename</router-link>
                 </span>
@@ -111,11 +147,19 @@ export default defineComponent({
       store.dispatch("removePlayer", teamPlayer);
     };
 
+    const isMenuOpen = ref(false);
+    
+    const toggleIsMenuOpen = () => {
+        isMenuOpen.value = !isMenuOpen.value;
+    };
+
     return {
       team,
       showCreatePlayer,
       showEditPlayer,
-      removePlayer
+      removePlayer,
+      isMenuOpen,
+      toggleIsMenuOpen      
     };
   }
 });
