@@ -78,9 +78,6 @@
                           <p class="mt-2 flex items-center text-sm text-gray-500">
                             <div class="sm:flex">
                               <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
-                                <span class="truncate">Parents: </span>
-                              </div>
-                              <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
                                 <span class="truncate">{{ player.parent1.name }}</span>
                               </div>
                               <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
