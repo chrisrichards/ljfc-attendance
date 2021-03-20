@@ -231,6 +231,7 @@ export default defineComponent({
       submit()
       const emailGenerator = new EmailGenerator()
       emailGenerator.generateEmail(event.value)
+      store.dispatch('hasEmailed', true)
     }
 
     const submit = (): void => {

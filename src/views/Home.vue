@@ -15,119 +15,55 @@
     >
       To get started follow the steps below:
     </p>
-    <!-- This example requires Tailwind CSS v2.0+ -->
+
     <div class="py-12 px-4 sm:px-6 lg:px-8">
       <nav class="flex justify-center" aria-label="Progress">
         <ol class="space-y-6">
-          <!-- <li>
-            **** Complete Step ***
-            <a href="#" class="group">
-              <span class="flex items-start">
-                <span class="flex-shrink-0 relative h-5 w-5 flex items-center justify-center">
-                  <svg
-                    class="h-full w-full text-indigo-600 group-hover:text-indigo-800"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <span class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
-                  Add a team
-                </span>
-              </span>
-            </a>
-          </li>
-
           <li>
-            *** Current Step ***
-            <a href="#" class="flex items-start" aria-current="step">
-              <span
-                class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
-                aria-hidden="true"
-              >
-                <span class="absolute h-4 w-4 rounded-full bg-indigo-200"></span>
-                <span class="relative block w-2 h-2 bg-indigo-600 rounded-full"></span>
-              </span>
-              <span class="ml-3 text-base font-medium text-indigo-600">
-                Add players and parent contact details to the team
-              </span>
-            </a>
-          </li> -->
-
-          <li>
-            <!-- Upcoming Step -->
-            <a href="#" class="group">
+            <router-link :to="{ name: 'CreateTeam' }" class="group">
               <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
-                </div>
+                <step-item :state="stepItemStates[0]" />
                 <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
                   Add a team
                 </p>
               </div>
-            </a>
+            </router-link>
           </li>
 
           <li>
-            <!-- Upcoming Step -->
-            <a href="#" class="group">
+            <router-link :to="{ name: 'Players', params: { teamId: team.id } }" class="group">
               <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
-                </div>
+                <step-item :state="stepItemStates[1]" />
                 <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
                   Add players and parent contact details to the team
                 </p>
               </div>
-            </a>
+            </router-link>
           </li>
 
           <li>
-            <!-- Upcoming Step -->
-            <a href="#" class="group">
+            <router-link :to="{ name: 'Events' }" class="group">
               <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
-                  aria-hidden="true"
+                <step-item :state="stepItemStates[2]" />
+                <p
+                  class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900 text-left"
                 >
-                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
-                </div>
-                <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
-                  Add an event, select the players and parents in attendance and whether they have
-                  self assessed
+                  Add an event, select the players and parents in <br />
+                  attendance and whether they have self assessed
                 </p>
               </div>
-            </a>
+            </router-link>
           </li>
 
           <li>
-            <!-- Upcoming Step -->
-            <a href="#" class="group">
+            <router-link :to="{ name: 'EditEvent', params: { id: event.id } }" class="group">
               <div class="flex items-start">
-                <div
-                  class="flex-shrink-0 h-5 w-5 relative flex items-center justify-center"
-                  aria-hidden="true"
-                >
-                  <div class="h-2 w-2 bg-gray-300 rounded-full group-hover:bg-gray-400"></div>
-                </div>
+                <step-item :state="stepItemStates[3]" />
                 <p class="ml-3 text-base font-medium text-gray-500 group-hover:text-gray-900">
                   Email the event to LJFC
                 </p>
               </div>
-            </a>
+            </router-link>
           </li>
         </ol>
       </nav>
@@ -172,13 +108,87 @@
 <script lang="ts">
 import store from '../store/index'
 import { defineComponent, ref } from 'vue'
+import StepItem from '@components/StepItem.vue'
+import { Event } from '../models/Event'
+import { StepItemState } from '../models/StepItemState'
+import { Team } from '../models/Team'
 
 export default defineComponent({
+  components: {
+    StepItem,
+  },
   setup() {
-    const hasTeam = ref(store.state.teams.length > 0)
+    const hasTeam = store.state.teams.length > 0
+    const team = hasTeam ? getTeam() : new Team()
+
+    const hasEvent = store.state.events.length > 0
+    const event = hasEvent ? getEvent() : new Event()
+
+    function getTeam(): Team {
+      return store.state.teams[0]
+    }
+
+    function getEvent(): Event {
+      return store.state.events[0]
+    }
+
+    function getStepItemStates(): StepItemState[] {
+      if (!hasTeam) {
+        return [
+          StepItemState.Current,
+          StepItemState.NotStarted,
+          StepItemState.NotStarted,
+          StepItemState.NotStarted,
+        ]
+      }
+
+      const hasPlayers = team.players.length > 0
+      if (!hasPlayers) {
+        return [
+          StepItemState.Completed,
+          StepItemState.Current,
+          StepItemState.NotStarted,
+          StepItemState.NotStarted,
+        ]
+      }
+
+      if (!hasEvent) {
+        return [
+          StepItemState.Completed,
+          StepItemState.Completed,
+          StepItemState.Current,
+          StepItemState.NotStarted,
+        ]
+      }
+
+      if (!store.state.hasEmailed) {
+        return [
+          StepItemState.Completed,
+          StepItemState.Completed,
+          StepItemState.Completed,
+          StepItemState.Current,
+        ]
+      }
+
+      return [
+        StepItemState.Completed,
+        StepItemState.Completed,
+        StepItemState.Completed,
+        StepItemState.Completed,
+      ]
+    }
+
+    function addPlayersState(): StepItemState {
+      return hasTeam ? StepItemState.Completed : StepItemState.NotStarted
+    }
+
+    const stepItemStates = getStepItemStates()
 
     return {
       hasTeam,
+      team,
+      event,
+      stepItemStates,
     }
   },
 })
