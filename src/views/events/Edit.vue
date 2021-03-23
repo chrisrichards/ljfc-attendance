@@ -1,181 +1,173 @@
 <template>
-  <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
-      <div class="bg-white shadow overflow-hidden sm:rounded-md">
-        <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-          <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
-            <div class="ml-4 mt-2">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">
-                <span v-if="event.id !== undefined">Edit event</span>
-                <span v-else>Add event</span>
-              </h3>
-            </div>
-            <div v-if="event.id !== undefined" class="ml-4 mt-2 flex-shrink-0">
-              <span class="inline-flex rounded-md">
-                <router-link
-                  :to="{ name: 'DeleteEvent', params: { id: event.id } }"
-                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2"
-                >
-                  Remove
-                </router-link>
-              </span>
+  <div class="bg-white shadow overflow-hidden sm:rounded-md">
+    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+      <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
+        <div class="ml-4 mt-2">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <span v-if="event.id !== undefined">Edit event</span>
+            <span v-else>Add event</span>
+          </h3>
+        </div>
+        <div v-if="event.id !== undefined" class="ml-4 mt-2 flex-shrink-0">
+          <span class="inline-flex rounded-md">
+            <router-link
+              :to="{ name: 'DeleteEvent', params: { id: event.id } }"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 focus:shadow-outline-gray active:bg-gray-200 transition ease-in-out duration-150 ml-2"
+            >
+              Remove
+            </router-link>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+      <form class="space-y-8 divide-y divide-gray-200">
+        <div>
+          <div>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-1">
+                <label for="date" class="block text-sm font-medium text-gray-700"> Date </label>
+                <div class="mt-1">
+                  <input
+                    id="date"
+                    name="date"
+                    type="date"
+                    v-model="event.date"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-6">
+                <label for="country" class="block text-sm font-medium text-gray-700"> Team </label>
+                <div class="mt-1">
+                  <select
+                    v-model="teamId"
+                    id="teams"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  >
+                    <option :value="0">Please select a team</option>
+                    <option v-for="team in teams" :key="team.id" :value="team.id">
+                      {{ team.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-          <form class="space-y-8 divide-y divide-gray-200">
-            <div>
-              <div>
-                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                  <div class="sm:col-span-1">
-                    <label for="date" class="block text-sm font-medium text-gray-700"> Date </label>
-                    <div class="mt-1">
+          <div class="mt-6">
+            <fieldset>
+              <legend class="text-base font-medium text-gray-900">Players</legend>
+              <div
+                v-for="player in event.team.players"
+                v-bind:key="player.id"
+                class="mt-4 mb-8 space-y-4"
+              >
+                <div class="relative flex items-start">
+                  <div class="flex items-center h-5">
+                    <input
+                      :id="'player[' + player.id + ']'"
+                      v-model="player.selected"
+                      type="checkbox"
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label :for="'player[' + player.id + ']'" class="font-medium text-gray-700">{{
+                      player.name
+                    }}</label>
+                  </div>
+                </div>
+                <div v-if="Parent.isPresent(player.parent1)">
+                  <div class="ml-8 mt-4 relative flex items-start">
+                    <div class="flex items-center h-5">
                       <input
-                        id="date"
-                        name="date"
-                        type="date"
-                        v-model="event.date"
-                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        :id="'player[' + player.id + '].parent1'"
+                        v-model="player.parent1.selected"
+                        type="checkbox"
+                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       />
                     </div>
-                  </div>
-                  <div class="sm:col-span-6">
-                    <label for="country" class="block text-sm font-medium text-gray-700">
-                      Team
-                    </label>
-                    <div class="mt-1">
-                      <select
-                        v-model="teamId"
-                        id="teams"
-                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    <div class="ml-3 text-sm">
+                      <label
+                        :for="'player[' + player.id + '].parent1'"
+                        class="font-medium text-gray-700"
                       >
-                        <option :value="0">Please select a team</option>
-                        <option v-for="team in teams" :key="team.id" :value="team.id">
-                          {{ team.name }}
-                        </option>
-                      </select>
+                        {{ player.parent1.name }}
+                      </label>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="mt-6">
-                <fieldset>
-                  <legend class="text-base font-medium text-gray-900">Players</legend>
-                  <div
-                    v-for="player in event.team.players"
-                    v-bind:key="player.id"
-                    class="mt-4 mb-8 space-y-4"
-                  >
-                    <div class="relative flex items-start">
-                      <div class="flex items-center h-5">
-                        <input
-                          :id="'player[' + player.id + ']'"
-                          v-model="player.selected"
-                          type="checkbox"
-                          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                        />
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label
-                          :for="'player[' + player.id + ']'"
-                          class="font-medium text-gray-700"
-                          >{{ player.name }}</label
-                        >
-                      </div>
+                <div v-if="Parent.isPresent(player.parent2)">
+                  <div class="ml-8 mt-4 relative flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        :id="'player[' + player.id + '].parent2'"
+                        v-model="player.parent2.selected"
+                        type="checkbox"
+                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      />
                     </div>
-                    <div v-if="Parent.isPresent(player.parent1)">
-                      <div class="ml-8 mt-4 relative flex items-start">
-                        <div class="flex items-center h-5">
-                          <input
-                            :id="'player[' + player.id + '].parent1'"
-                            v-model="player.parent1.selected"
-                            type="checkbox"
-                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label
-                            :for="'player[' + player.id + '].parent1'"
-                            class="font-medium text-gray-700"
-                          >
-                            {{ player.parent1.name }}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="Parent.isPresent(player.parent2)">
-                      <div class="ml-8 mt-4 relative flex items-start">
-                        <div class="flex items-center h-5">
-                          <input
-                            :id="'player[' + player.id + '].parent2'"
-                            v-model="player.parent2.selected"
-                            type="checkbox"
-                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label
-                            :for="'player[' + player.id + '].parent2'"
-                            class="font-medium text-gray-700"
-                          >
-                            {{ player.parent2.name }}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="ml-8 mt-4 relative flex items-start">
-                      <div class="flex items-center h-5">
-                        <input
-                          :id="'player[' + player.id + '].selfAssessment'"
-                          v-model="player.selfAssessment"
-                          type="checkbox"
-                          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                        />
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label
-                          :for="'player[' + player.id + '].selfAssessment'"
-                          class="font-medium text-gray-700"
-                        >
-                          I can confirm we have completed the self assessment
-                        </label>
-                      </div>
+                    <div class="ml-3 text-sm">
+                      <label
+                        :for="'player[' + player.id + '].parent2'"
+                        class="font-medium text-gray-700"
+                      >
+                        {{ player.parent2.name }}
+                      </label>
                     </div>
                   </div>
-                </fieldset>
+                </div>
+                <div class="ml-8 mt-4 relative flex items-start">
+                  <div class="flex items-center h-5">
+                    <input
+                      :id="'player[' + player.id + '].selfAssessment'"
+                      v-model="player.selfAssessment"
+                      type="checkbox"
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div class="ml-3 text-sm">
+                    <label
+                      :for="'player[' + player.id + '].selfAssessment'"
+                      class="font-medium text-gray-700"
+                    >
+                      I can confirm we have completed the self assessment
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="pt-5">
-              <div class="flex justify-end">
-                <span class="inline-flex rounded-md shadow-sm">
-                  <router-link
-                    :to="{ name: 'Events' }"
-                    class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                  >
-                    Cancel
-                  </router-link>
-                </span>
-                <span class="ml-3 inline-flex rounded-md shadow-sm">
-                  <button
-                    @click="submit"
-                    class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-                  >
-                    Save
-                  </button>
-                </span>
-                <span class="ml-3 inline-flex rounded-md shadow-sm">
-                  <button
-                    @click="submitAndEmail"
-                    class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-                  >
-                    Save & Email
-                  </button>
-                </span>
-              </div>
-            </div>
-          </form>
+            </fieldset>
+          </div>
         </div>
-      </div>
+        <div class="pt-5">
+          <div class="flex justify-end">
+            <span class="inline-flex rounded-md shadow-sm">
+              <router-link
+                :to="{ name: 'Events' }"
+                class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+              >
+                Cancel
+              </router-link>
+            </span>
+            <span class="ml-3 inline-flex rounded-md shadow-sm">
+              <button
+                @click="submit"
+                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              >
+                Save
+              </button>
+            </span>
+            <span class="ml-3 inline-flex rounded-md shadow-sm">
+              <button
+                @click="submitAndEmail"
+                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              >
+                Save & Email
+              </button>
+            </span>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
