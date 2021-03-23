@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow overflow-hidden sm:rounded-md">
+  <div class="bg-white shadow sm:rounded-md">
     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
       <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
         <div class="ml-4 mt-2">
@@ -46,8 +46,10 @@
             <div>
               <h3 class="text-lg leading-6 font-medium text-gray-900">Parents</h3>
             </div>
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-              <!-- Parent 1 -->
+            <div>
+              <h4 class="text-lg leading-6 font-medium text-gray-400 mt-4">Parent 1</h4>
+            </div>
+            <div class="mt-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div class="sm:col-span-2">
                 <label for="parent1.name" class="block text-sm font-medium text-gray-700">
                   Name
@@ -90,7 +92,11 @@
                   />
                 </div>
               </div>
-              <!-- Parent 2 -->
+            </div>
+            <div class="mt-8">
+              <h4 class="text-lg leading-6 font-medium text-gray-400 mt-4">Parent 2</h4>
+            </div>
+            <div class="mt-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div class="sm:col-span-2">
                 <label for="parent2.name" class="block text-sm font-medium text-gray-700">
                   Name

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-gray-200 overflow-hidden">
+  <div class="relative bg-gray-200">
     <Nav></Nav>
     <main class="mx-auto max-w-screen-xl md:px-4 md:pb-6">
       <div class="max-w-7xl mx-auto lg:px-8">
