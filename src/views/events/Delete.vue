@@ -50,7 +50,7 @@ export default defineComponent({
     }
 
     const submit = (): void => {
-      store.dispatch('removeEvent', event)
+      store.dispatch('removeEvent', event.id)
       router.push({ path: `/events` })
     }
 

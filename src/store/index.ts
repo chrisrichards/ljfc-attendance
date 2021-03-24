@@ -95,8 +95,8 @@ export default createStore({
     updateEvent({ commit }, event: Event) {
       commit('updateEvent', event)
     },
-    removeEvent({ commit }, event: Event) {
-      commit('removeEvent', event)
+    removeEvent({ commit }, id: number) {
+      commit('removeEvent', id)
     },
 
     // players

@@ -128,7 +128,7 @@ export default defineComponent({
     const team = hasTeam ? getTeam() : new Team()
 
     const hasEvent = store.state.events.length > 0
-    const event = hasEvent ? getEvent() : new Event()
+    const event = hasEvent ? getEvent() : new Event(team)
 
     function getTeam(): Team {
       return store.state.teams[0]

@@ -64,7 +64,7 @@ import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const events = ref(store.state.events)
+    const events = store.state.events.sort((a, b) => (a.date < b.date ? 1 : -1))
 
     return {
       events,

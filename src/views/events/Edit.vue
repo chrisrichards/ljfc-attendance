@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-      <form class="space-y-8 divide-y divide-gray-200">
+      <form @submit="save" class="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -37,7 +37,24 @@
                   />
                 </div>
               </div>
-              <div class="sm:col-span-6">
+              <div class="sm:col-span-2">
+                <label for="location" class="block text-sm font-medium text-gray-700">
+                  Location
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="location"
+                    name="location"
+                    type="text"
+                    autocomplete
+                    v-model="event.location"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-2">
                 <label for="country" class="block text-sm font-medium text-gray-700"> Team </label>
                 <div class="mt-1">
                   <select
@@ -50,6 +67,22 @@
                       {{ team.name }}
                     </option>
                   </select>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="type" class="block text-sm font-medium text-gray-700">
+                  Type of event
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="type"
+                    name="type"
+                    type="text"
+                    autocomplete
+                    placeholder="e.g. Training session or Match"
+                    v-model="event.type"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  />
                 </div>
               </div>
             </div>
@@ -151,7 +184,7 @@
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
               <button
-                @click="submit"
+                type="submit"
                 class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
               >
                 Save
@@ -159,7 +192,7 @@
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
               <button
-                @click="submitAndEmail"
+                @click="saveAndEmail"
                 class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
               >
                 Save & Email
@@ -197,7 +230,7 @@ export default defineComponent({
     const teams = ref(store.state.teams)
     const teamId = ref(team.id || 0)
 
-    let e = new Event(undefined, undefined, Team.clone(team))
+    let e = new Event(team)
 
     if (props.id) {
       const orig = store.getters.getEventById(Number(props.id))
@@ -219,19 +252,26 @@ export default defineComponent({
       store.dispatch('removeEvent', id)
     }
 
-    const submitAndEmail = (): void => {
-      submit()
-      const emailGenerator = new EmailGenerator()
-      emailGenerator.generateEmail(event.value)
-      store.dispatch('hasEmailed', true)
-    }
-
-    const submit = (): void => {
+    const doSave = (): void => {
       if (props.id) {
         store.dispatch('updateEvent', event.value)
       } else {
         store.dispatch('addEvent', event.value)
       }
+    }
+
+    const saveAndEmail = (): void => {
+      doSave()
+
+      const emailGenerator = new EmailGenerator()
+      emailGenerator.generateEmail(event.value)
+      store.dispatch('hasEmailed', true)
+
+      router.push({ path: '/events' })
+    }
+
+    const save = (): void => {
+      doSave()
       router.push({ path: '/events' })
     }
 
@@ -241,8 +281,8 @@ export default defineComponent({
       teamId,
       team,
       teams,
-      submit,
-      submitAndEmail,
+      save,
+      saveAndEmail,
     }
   },
 })

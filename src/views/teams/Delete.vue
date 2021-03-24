@@ -43,11 +43,11 @@ export default defineComponent({
     id: String,
   },
   setup(props) {
-    const team = ref(store.getters.getTeamById(Number(props.id)))
+    const team = store.getters.getTeamById(Number(props.id))
 
     const submit = (): void => {
       if (props.id) {
-        store.dispatch('removeTeam', team.value)
+        store.dispatch('removeTeam', team.id)
       }
       router.push({ path: '/teams' })
     }
