@@ -21,16 +21,24 @@
       </div>
     </div>
     <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-      <form @submit="save" class="space-y-8 divide-y divide-gray-200">
+      <form
+        @submit="save"
+        method="post"
+        action="/events"
+        autocomplete="on"
+        class="space-y-8 divide-y divide-gray-200"
+      >
         <div>
           <div>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div class="sm:col-span-1">
-                <label for="date" class="block text-sm font-medium text-gray-700"> Date </label>
+                <label for="event.date" class="block text-sm font-medium text-gray-700">
+                  Date
+                </label>
                 <div class="mt-1">
                   <input
-                    id="date"
-                    name="date"
+                    id="event.date"
+                    name="event.date"
                     type="date"
                     v-model="event.date"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -38,15 +46,15 @@
                 </div>
               </div>
               <div class="sm:col-span-2">
-                <label for="location" class="block text-sm font-medium text-gray-700">
+                <label for="event.location" class="block text-sm font-medium text-gray-700">
                   Location
                 </label>
                 <div class="mt-1">
                   <input
-                    id="location"
-                    name="location"
+                    id="event.location"
+                    name="event.location"
                     type="text"
-                    autocomplete
+                    autocomplete="on"
                     v-model="event.location"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   />
@@ -55,11 +63,14 @@
             </div>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div class="sm:col-span-2">
-                <label for="country" class="block text-sm font-medium text-gray-700"> Team </label>
+                <label for="event.team" class="block text-sm font-medium text-gray-700">
+                  Team
+                </label>
                 <div class="mt-1">
                   <select
                     v-model="teamId"
-                    id="teams"
+                    id="event.team"
+                    name="event.team"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   >
                     <option :value="0">Please select a team</option>
@@ -70,15 +81,15 @@
                 </div>
               </div>
               <div class="sm:col-span-2">
-                <label for="type" class="block text-sm font-medium text-gray-700">
+                <label for="event.type" class="block text-sm font-medium text-gray-700">
                   Type of event
                 </label>
                 <div class="mt-1">
                   <input
-                    id="type"
-                    name="type"
+                    id="event.type"
+                    name="event.type"
                     type="text"
-                    autocomplete
+                    autocomplete="on"
                     placeholder="e.g. Training session or Match"
                     v-model="event.type"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -90,6 +101,22 @@
           <div class="mt-6">
             <fieldset>
               <legend class="text-base font-medium text-gray-900">Players</legend>
+              <div class="mt-4 relative flex items-start">
+                <div class="flex items-center h-5">
+                  <input
+                    id="select-all-players"
+                    type="checkbox"
+                    v-model="allPlayersSelected"
+                    @click="selectAllPlayers(event.team.players)"
+                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                  />
+                </div>
+                <div class="ml-3 text-sm">
+                  <label for="select-all-players" class="font-medium text-gray-700">
+                    Select All
+                  </label>
+                </div>
+              </div>
               <div
                 v-for="player in event.team.players"
                 v-bind:key="player.id"
@@ -100,6 +127,7 @@
                     <input
                       :id="'player[' + player.id + ']'"
                       v-model="player.selected"
+                      @click="onSelectPlayer(player)"
                       type="checkbox"
                       class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                     />
@@ -116,6 +144,7 @@
                       <input
                         :id="'player[' + player.id + '].parent1'"
                         v-model="player.parent1.selected"
+                        @click="onSelectParent(player)"
                         type="checkbox"
                         class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       />
@@ -136,6 +165,7 @@
                       <input
                         :id="'player[' + player.id + '].parent2'"
                         v-model="player.parent2.selected"
+                        @click="onSelectParent(player)"
                         type="checkbox"
                         class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       />
@@ -208,11 +238,12 @@
 <script lang="ts">
 import { Event } from '../../models/Event'
 import { Parent } from '../..//models/Parent'
+import { Player } from '../..//models/Player'
 import { Team } from '../..//models/Team'
 import EmailGenerator from '../..//services/EmailGenerator'
 import router from '../..//router/index'
 import store from '../..//store/index'
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, reactive, ref, watch } from 'vue'
 
 export default defineComponent({
   props: {
@@ -227,7 +258,7 @@ export default defineComponent({
     }
 
     const team = getTeamOrDefault(store.state.teams)
-    const teams = ref(store.state.teams)
+    const teams = store.state.teams
     const teamId = ref(team.id || 0)
 
     let e = new Event(team)
@@ -250,6 +281,36 @@ export default defineComponent({
 
     const removeEvent = (id: number): void => {
       store.dispatch('removeEvent', id)
+    }
+
+    const onSelectParent = (player: Player): void => {
+      const selected = !player.selected
+      if (!selected) return
+      player.selected = selected
+      player.selfAssessment = selected
+    }
+
+    const onSelectPlayer = (player: Player): void => {
+      const selected = !player.selected
+
+      player.parent1.selected = selected
+      if (!selected) player.parent2.selected = selected
+
+      player.selfAssessment = selected
+    }
+
+    let allPlayersSelected = ref(false)
+
+    const selectAllPlayers = (players: Player[]): void => {
+      allPlayersSelected.value = !allPlayersSelected.value
+      const selected = allPlayersSelected.value
+
+      players.forEach((p) => {
+        p.selected = selected
+        p.parent1.selected = selected
+        if (!selected) p.parent2.selected = selected
+        p.selfAssessment = selected
+      })
     }
 
     const doSave = (): void => {
@@ -281,6 +342,10 @@ export default defineComponent({
       teamId,
       team,
       teams,
+      onSelectParent,
+      onSelectPlayer,
+      allPlayersSelected,
+      selectAllPlayers,
       save,
       saveAndEmail,
     }
