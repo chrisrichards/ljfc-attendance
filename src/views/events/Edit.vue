@@ -201,6 +201,26 @@
               </div>
             </fieldset>
           </div>
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <label for="event.covidrep" class="block text-sm font-medium text-gray-700">
+                COVID Rep
+              </label>
+              <div class="mt-1">
+                <select
+                  v-model="event.covidrep"
+                  id="event.covidrep"
+                  name="event.covidrep"
+                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                >
+                  <option value="">Please select a parent / carer</option>
+                  <option v-for="parent in parents" :key="parent.id" :value="parent.name">
+                    {{ parent.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="pt-5">
           <div class="flex justify-end">
@@ -243,7 +263,7 @@ import { Team } from '../..//models/Team'
 import EmailGenerator from '../..//services/EmailGenerator'
 import router from '../..//router/index'
 import store from '../..//store/index'
-import { defineComponent, reactive, ref, watch } from 'vue'
+import { computed, defineComponent, reactive, ref, watch } from 'vue'
 
 export default defineComponent({
   props: {
@@ -283,9 +303,21 @@ export default defineComponent({
       store.dispatch('removeEvent', id)
     }
 
+    const resetCovidrep = (player: Player) => {
+      if (
+        player.parent1.name == event.value.covidrep ||
+        player.parent2.name == event.value.covidrep
+      ) {
+        event.value.covidrep = undefined
+      }
+    }
+
     const onSelectParent = (player: Player): void => {
       const selected = !player.selected
-      if (!selected) return
+      if (!selected) {
+        resetCovidrep(player)
+        return
+      }
       player.selected = selected
       player.selfAssessment = selected
     }
@@ -294,8 +326,10 @@ export default defineComponent({
       const selected = !player.selected
 
       player.parent1.selected = selected
-      if (!selected) player.parent2.selected = selected
-
+      if (!selected) {
+        resetCovidrep(player)
+        player.parent2.selected = selected
+      }
       player.selfAssessment = selected
     }
 
@@ -312,6 +346,18 @@ export default defineComponent({
         p.selfAssessment = selected
       })
     }
+
+    const parents = computed(() => {
+      let selectedParent1s = event.value.team.players
+        .filter((p) => p.parent1.selected)
+        .map((p) => p.parent1)
+      let selectedParent2s = event.value.team.players
+        .filter((p) => p.parent2.selected)
+        .map((p) => p.parent2)
+      return selectedParent1s
+        .concat(selectedParent2s)
+        .sort((p1, p2) => (p1.name > p2.name ? 1 : -1))
+    })
 
     const doSave = (): void => {
       if (props.id) {
@@ -339,6 +385,7 @@ export default defineComponent({
     return {
       event,
       Parent,
+      parents,
       teamId,
       team,
       teams,

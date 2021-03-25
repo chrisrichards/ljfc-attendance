@@ -27,11 +27,9 @@ export default class EmailGenerator {
     body += this.writeLine(`Location: ${event.location}`)
     body += this.writeLine(`Team: ${event.team.name}`)
     body += this.writeLine(`Type of event: ${event.type}`)
-    body += newLine
-    body += newLine
+    body += this.writeLine(`COVID Rep: ${event.covidrep}`)
     body += newLine
     body += this.writeLine(`Attendees:`)
-    body += newLine
     body += newLine
 
     const players = event.team.players.filter((p) => p.selected === true)
