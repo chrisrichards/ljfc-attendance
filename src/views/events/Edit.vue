@@ -223,6 +223,31 @@
           </div>
         </div>
         <div class="pt-5">
+          <div v-if="!saveEnabled" class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <!-- Heroicon name: solid/exclamation -->
+                <svg
+                  class="h-5 w-5 text-yellow-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm text-yellow-700">
+                  Please select the players present and a COVID Rep
+                </p>
+              </div>
+            </div>
+          </div>
           <div class="flex justify-end">
             <span class="inline-flex rounded-md shadow-sm">
               <router-link
@@ -235,15 +260,17 @@
             <span class="ml-3 inline-flex rounded-md shadow-sm">
               <button
                 type="submit"
-                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                :disabled="!saveEnabled"
+                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 disabled:opacity-50 transition duration-150 ease-in-out"
               >
                 Save
               </button>
             </span>
             <span class="ml-3 inline-flex rounded-md shadow-sm">
               <button
+                :disabled="!saveEnabled"
                 @click="saveAndEmail"
-                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 disabled:opacity-50 transition duration-150 ease-in-out"
               >
                 Save & Email
               </button>
@@ -359,6 +386,13 @@ export default defineComponent({
         .sort((p1, p2) => (p1.name > p2.name ? 1 : -1))
     })
 
+    const saveEnabled = computed((): boolean => {
+      const selectedPlayersCount = event.value.team.players.filter((p) => p.selected).length
+      return (
+        selectedPlayersCount > 0 && event.value.covidrep != undefined && event.value.covidrep != ''
+      )
+    })
+
     const doSave = (): void => {
       if (props.id) {
         store.dispatch('updateEvent', event.value)
@@ -393,6 +427,7 @@ export default defineComponent({
       onSelectPlayer,
       allPlayersSelected,
       selectAllPlayers,
+      saveEnabled,
       save,
       saveAndEmail,
     }
