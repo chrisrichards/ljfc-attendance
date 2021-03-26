@@ -51,7 +51,7 @@ export default class EmailGenerator {
   }
 
   public generateEmail(event: Event): void {
-    const to = 'cwo@littletonjuniorfc.com, fletchdownunder@gmail.com'
+    const to = 'cwo@littletonjuniorfc.com, chairman@littletonjuniorfc.com'
     const subject = `LJFC ${event.date} - ${event.team.name} attendance`
     const body = this.buildBody(event)
     const mail = `mailto:${to}?subject=${subject}&body=${body}`
