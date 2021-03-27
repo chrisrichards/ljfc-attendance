@@ -34,7 +34,7 @@
                     type="text"
                     name="name"
                     id="name"
-                    autocomplete="player-name"
+                    required
                     v-model="player.name"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   />
@@ -60,6 +60,7 @@
                     name="parent1.name"
                     id="parent1.name"
                     v-model="player.parent1.name"
+                    required
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -152,8 +153,9 @@
             </router-link>
             <button
               type="submit"
+              :disabled="!saveEnabled"
               @click="submit"
-              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
             >
               Save
             </button>
@@ -169,7 +171,7 @@ import { Player } from '../../models/Player'
 import { TeamPlayer } from '../..//models/TeamPlayer'
 import router from '../..//router/index'
 import store from '../..//store/index'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   props: {
@@ -205,9 +207,14 @@ export default defineComponent({
       router.push({ path: `/teams/${team.id}/players` })
     }
 
+    const saveEnabled = computed((): boolean => {
+      return player.value.name !== '' && player.value.parent1.name !== ''
+    })
+
     return {
       team,
       player,
+      saveEnabled,
       submit,
     }
   },
