@@ -7,6 +7,8 @@ export class Event {
   location: string | undefined
   team = new Team()
   covidrep: string | undefined
+  leadCoachName: string | undefined
+  leadCoachNumber: string | undefined
 
   constructor(team: Team) {
     this.id = undefined
@@ -15,6 +17,8 @@ export class Event {
     this.location = undefined
     this.team = Team.clone(team)
     this.covidrep = undefined
+    this.leadCoachName = undefined
+    this.leadCoachNumber = undefined
   }
 
   static update(thisArg: Event, e: Event) {
@@ -23,6 +27,8 @@ export class Event {
     thisArg.location = e.location
     thisArg.team = e.team
     thisArg.covidrep = e.covidrep
+    thisArg.leadCoachName = e.leadCoachName
+    thisArg.leadCoachNumber = e.leadCoachNumber
   }
 
   static clone(src: Event) {
@@ -32,6 +38,8 @@ export class Event {
     event.type = src.type
     event.location = src.location
     event.covidrep = src.covidrep
+    event.leadCoachName = src.leadCoachName
+    event.leadCoachNumber = src.leadCoachNumber
     return event
   }
 }

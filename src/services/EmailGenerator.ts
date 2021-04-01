@@ -27,6 +27,8 @@ export default class EmailGenerator {
     body += this.writeLine(`Location: ${event.location}`)
     body += this.writeLine(`Team: ${event.team.name}`)
     body += this.writeLine(`Type of event: ${event.type}`)
+    body += this.writeLine(`Lead Coach: ${event.leadCoachName}`)
+    body += this.writeLine(`Lead Coach Contact Number: ${event.leadCoachNumber}`)
     body += this.writeLine(`COVID Rep: ${event.covidrep}`)
     body += newLine
     body += this.writeLine(`Attendees:`)

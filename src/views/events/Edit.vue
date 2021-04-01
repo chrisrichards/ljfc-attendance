@@ -97,6 +97,38 @@
                 </div>
               </div>
             </div>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-2">
+                <label for="event.leadCoachName" class="block text-sm font-medium text-gray-700">
+                  Lead Coach
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="event.leadCoachName"
+                    name="event.leadCoachName"
+                    type="text"
+                    autocomplete="on"
+                    v-model="event.leadCoachName"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="event.leadCoachNumber" class="block text-sm font-medium text-gray-700">
+                  Lead Coach Contact Number
+                </label>
+                <div class="mt-1">
+                  <input
+                    id="event.leadCoachNumber"
+                    name="event.leadCoachNumber"
+                    type="tel"
+                    autocomplete="on"
+                    v-model="event.leadCoachNumber"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div class="mt-6">
             <fieldset>
